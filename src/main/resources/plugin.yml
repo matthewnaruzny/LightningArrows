@@ -1,0 +1,8 @@
+name: LightningArrow
+version: 1.0.0
+main: com.upnorthdevelopers.lightningArrow.LightningArrowPlugin
+commands:
+  lightningArrow:
+    description: Gives user lightning summoning bow
+    usage: /lightningArrow
+    permission: lightningArrow.shootpl
