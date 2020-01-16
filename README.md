@@ -1,6 +1,7 @@
 # LightningArrows
 
-[![Build Status](https://travis-ci.com/matthewnaruzny/LightningArrows.svg?branch=master)](https://travis-ci.com/matthewnaruzny/LightningArrows)
+![Travis (.com) branch](https://img.shields.io/travis/com/matthewnaruzny/LightningArrows/master?label=master)
+![Travis (.com) branch](https://img.shields.io/travis/com/matthewnaruzny/LightningArrows/dev?label=dev)
 ![GitHub](https://img.shields.io/github/license/matthewnaruzny/LightningArrows)
 
 LightningArrows is a Minecraft Plugin that allows players to shoot arrows which will cause lightning to strike the location where the arrow lands.
