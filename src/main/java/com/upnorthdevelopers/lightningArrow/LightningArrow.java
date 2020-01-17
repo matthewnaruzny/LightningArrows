@@ -54,6 +54,18 @@ public class LightningArrow implements CommandExecutor {
 
     }
 
+    public static ItemStack getExplosionBow(){
+        ItemStack bow = new ItemStack(Material.BOW, 1);
+        ItemMeta bowMeta = bow.getItemMeta();
+        bowMeta.setDisplayName("Explosion Bow");
+        List<String> bowLore = new ArrayList<String>();
+        bowLore.add("Cause explosion where lands");
+        bowMeta.setLore(bowLore);
+        bow.setItemMeta(bowMeta);
+        return bow;
+
+    }
+
     public static boolean hasSpecialBow(Inventory inv){
         for(BowType bowType : BowType.values()){
             if(inv.contains(getBow(bowType))){
