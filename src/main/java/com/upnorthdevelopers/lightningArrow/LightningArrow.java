@@ -28,7 +28,7 @@ public class LightningArrow implements CommandExecutor {
         if (sender instanceof Player){
             Player player = (Player) sender;
             BowType bowType;
-            bowType = BowType.valueOf(label.toUpperCase());
+            bowType = BowType.valueOf(strings[0].toUpperCase());
             player.getInventory().addItem(getBow(bowType));
         }
         return true;
