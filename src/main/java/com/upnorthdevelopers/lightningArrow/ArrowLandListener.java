@@ -45,7 +45,11 @@ public class ArrowLandListener implements Listener {
             try{
                 event.getHitEntity().getWorld().strikeLightning(event.getHitEntity().getLocation());
             } catch (NullPointerException ex){
-                event.getHitBlock().getWorld().strikeLightning(event.getHitBlock().getLocation());
+               try{
+                   event.getHitBlock().getWorld().strikeLightning(event.getHitBlock().getLocation());
+               } catch (NullPointerException ignored){
+
+               }
             }
         }
         if(explosionArrowList.contains(event.getEntity().getUniqueId())){
@@ -53,7 +57,11 @@ public class ArrowLandListener implements Listener {
             try{
                 event.getHitEntity().getWorld().createExplosion(event.getHitEntity().getLocation(), 5f);
             } catch (NullPointerException ex){
-                event.getHitBlock().getWorld().createExplosion(event.getHitBlock().getLocation(), 5f);
+                try{
+                    event.getHitBlock().getWorld().createExplosion(event.getHitBlock().getLocation(), 5f);
+                } catch (NullPointerException ignored){
+
+                }
             }
         }
     }

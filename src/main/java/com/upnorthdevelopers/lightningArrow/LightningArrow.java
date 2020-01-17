@@ -39,6 +39,8 @@ public class LightningArrow implements CommandExecutor {
             default:
             case LIGHTNING:
                 return getLightningBow();
+            case EXPLOSION:
+                return getExplosionBow();
         }
     }
 
