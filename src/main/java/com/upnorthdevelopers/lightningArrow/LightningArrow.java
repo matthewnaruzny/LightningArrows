@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -26,9 +27,21 @@ public class LightningArrow implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] strings) {
         if (sender instanceof Player){
             Player player = (Player) sender;
-            player.getInventory().addItem(getLightningBow());
+            BowType bowType;
+            bowType = BowType.valueOf(strings[0].toUpperCase());
+            player.getInventory().addItem(getBow(bowType));
         }
         return true;
+    }
+
+    public static ItemStack getBow(BowType bowType){
+        switch (bowType){
+            default:
+            case LIGHTNING:
+                return getLightningBow();
+            case EXPLOSION:
+                return getExplosionBow();
+        }
     }
 
     public static ItemStack getLightningBow(){
@@ -42,4 +55,31 @@ public class LightningArrow implements CommandExecutor {
         return bow;
 
     }
+
+    public static ItemStack getExplosionBow(){
+        ItemStack bow = new ItemStack(Material.BOW, 1);
+        ItemMeta bowMeta = bow.getItemMeta();
+        bowMeta.setDisplayName("Explosion Bow");
+        List<String> bowLore = new ArrayList<String>();
+        bowLore.add("Cause explosion where lands");
+        bowMeta.setLore(bowLore);
+        bow.setItemMeta(bowMeta);
+        return bow;
+
+    }
+
+    public static boolean hasSpecialBow(Inventory inv){
+        for(BowType bowType : BowType.values()){
+            if(inv.contains(getBow(bowType))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+}
+
+enum BowType {
+    LIGHTNING,
+    EXPLOSION;
 }

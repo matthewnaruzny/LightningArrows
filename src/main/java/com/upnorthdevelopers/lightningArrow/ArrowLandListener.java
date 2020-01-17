@@ -15,30 +15,53 @@ import java.util.UUID;
 
 public class ArrowLandListener implements Listener {
 
-    ArrayList<UUID> flyingArrowsList;
+    ArrayList<UUID> lightningArrowList;
+    ArrayList<UUID> explosionArrowList;
 
     ArrowLandListener(){
-        flyingArrowsList = new ArrayList<UUID>();
+        lightningArrowList = new ArrayList<UUID>();
+        explosionArrowList = new ArrayList<UUID>();
     }
 
     @EventHandler
     public void onArrowLaunch(ProjectileLaunchEvent event){
         Player player = (Player) event.getEntity().getShooter();
         if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
-           if(player.getInventory().contains(LightningArrow.getLightningBow())){
-               flyingArrowsList.add(event.getEntity().getUniqueId());
-           }
+            if(LightningArrow.hasSpecialBow(player.getInventory())){
+                if(player.getInventory().contains(LightningArrow.getLightningBow())){
+                    lightningArrowList.add(event.getEntity().getUniqueId());
+                }
+                if(player.getInventory().contains(LightningArrow.getExplosionBow())){
+                    explosionArrowList.add(event.getEntity().getUniqueId());
+                }
+            }
         }
     }
 
     @EventHandler
     public void onArrowHitBlock(ProjectileHitEvent event){
-        if(flyingArrowsList.contains(event.getEntity().getUniqueId())){
-            flyingArrowsList.remove(event.getEntity().getUniqueId());
+        if(lightningArrowList.contains(event.getEntity().getUniqueId())){
+            lightningArrowList.remove(event.getEntity().getUniqueId());
             try{
                 event.getHitEntity().getWorld().strikeLightning(event.getHitEntity().getLocation());
             } catch (NullPointerException ex){
-                event.getHitBlock().getWorld().strikeLightning(event.getHitBlock().getLocation());
+               try{
+                   event.getHitBlock().getWorld().strikeLightning(event.getHitBlock().getLocation());
+               } catch (NullPointerException ignored){
+
+               }
+            }
+        }
+        if(explosionArrowList.contains(event.getEntity().getUniqueId())){
+            explosionArrowList.remove(event.getEntity().getUniqueId());
+            try{
+                event.getHitEntity().getWorld().createExplosion(event.getHitEntity().getLocation(), 5f);
+            } catch (NullPointerException ex){
+                try{
+                    event.getHitBlock().getWorld().createExplosion(event.getHitBlock().getLocation(), 5f);
+                } catch (NullPointerException ignored){
+
+                }
             }
         }
     }
