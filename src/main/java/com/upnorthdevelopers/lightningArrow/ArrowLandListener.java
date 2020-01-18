@@ -51,6 +51,7 @@ public class ArrowLandListener implements Listener {
 
                }
             }
+            event.getEntity().remove();
         }
         if(explosionArrowList.contains(event.getEntity().getUniqueId())){
             explosionArrowList.remove(event.getEntity().getUniqueId());
@@ -63,6 +64,7 @@ public class ArrowLandListener implements Listener {
 
                 }
             }
+            event.getEntity().remove();
         }
     }
 }
