@@ -9,5 +9,22 @@ LightningArrows is a Minecraft Plugin that allows players to shoot arrows which 
 ### Features
 
 - Lightning! What more could you ask for?
-- Permissions to allow players to use arrow
+- Multiple types of bows including ones that shoot explosive arrows and lightning arrows
+- Permissions to control which players can use the bows
 - Command to retrieve Bow with Lightning Arrow shooting Capabilities
+
+### Commands
+Lightning Summoning Arrow:
+
+`/lightningarrow lightning`
+or
+`/lightningarrow`
+
+Explosion Summoning Arrow:
+
+`/lightningarrow explosion`
+
+
+
+### Downloads
+[Releases](https://github.com/matthewnaruzny/LightningArrows/releases)
