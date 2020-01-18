@@ -28,10 +28,10 @@ public class ArrowLandListener implements Listener {
         Player player = (Player) event.getEntity().getShooter();
         if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
             if(LightningArrow.hasSpecialBow(player.getInventory())){
-                if(player.getInventory().contains(LightningArrow.getLightningBow())){
+                if(player.getInventory().getItemInMainHand().equals(LightningArrow.getLightningBow())){
                     lightningArrowList.add(event.getEntity().getUniqueId());
                 }
-                if(player.getInventory().contains(LightningArrow.getExplosionBow())){
+                if(player.getInventory().getItemInMainHand().equals(LightningArrow.getExplosionBow())){
                     explosionArrowList.add(event.getEntity().getUniqueId());
                 }
             }
@@ -51,6 +51,7 @@ public class ArrowLandListener implements Listener {
 
                }
             }
+            event.getEntity().remove();
         }
         if(explosionArrowList.contains(event.getEntity().getUniqueId())){
             explosionArrowList.remove(event.getEntity().getUniqueId());
@@ -63,6 +64,7 @@ public class ArrowLandListener implements Listener {
 
                 }
             }
+            event.getEntity().remove();
         }
     }
 }

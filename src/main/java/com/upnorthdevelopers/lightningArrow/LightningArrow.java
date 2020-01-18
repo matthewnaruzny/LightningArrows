@@ -28,8 +28,13 @@ public class LightningArrow implements CommandExecutor {
         if (sender instanceof Player){
             Player player = (Player) sender;
             BowType bowType;
-            bowType = BowType.valueOf(strings[0].toUpperCase());
-            player.getInventory().addItem(getBow(bowType));
+            try{
+                bowType = BowType.valueOf(strings[0].toUpperCase());
+                player.getInventory().addItem(getBow(bowType));
+            } catch (ArrayIndexOutOfBoundsException ex){
+                player.getInventory().addItem(getBow(BowType.LIGHTNING));
+            }
+
         }
         return true;
     }
