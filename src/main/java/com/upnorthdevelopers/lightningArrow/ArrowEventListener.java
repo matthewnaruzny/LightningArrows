@@ -15,12 +15,10 @@ import java.util.UUID;
 
 public class ArrowEventListener implements Listener {
 
-    ArrayList<UUID> lightningArrowList;
-    ArrayList<UUID> explosionArrowList;
+    ArrayList<AliveArrow> aliveArrowList;
 
     ArrowEventListener(){
-        lightningArrowList = new ArrayList<UUID>();
-        explosionArrowList = new ArrayList<UUID>();
+        aliveArrowList = new ArrayList<AliveArrow>();
     }
 
     @EventHandler
@@ -29,10 +27,10 @@ public class ArrowEventListener implements Listener {
         if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
             if(LightningArrow.hasSpecialBow(player.getInventory())){
                 if(player.getInventory().getItemInMainHand().equals(LightningArrow.getLightningBow())){
-                    lightningArrowList.add(event.getEntity().getUniqueId());
+                    aliveArrowList.add(new AliveArrow(event.getEntity().getUniqueId(), BowType.LIGHTNING));
                 }
                 if(player.getInventory().getItemInMainHand().equals(LightningArrow.getExplosionBow())){
-                    explosionArrowList.add(event.getEntity().getUniqueId());
+                    aliveArrowList.add(new AliveArrow(event.getEntity().getUniqueId(), BowType.EXPLOSION));
                 }
             }
         }
@@ -40,31 +38,34 @@ public class ArrowEventListener implements Listener {
 
     @EventHandler
     public void onArrowHitBlock(ProjectileHitEvent event){
-        if(lightningArrowList.contains(event.getEntity().getUniqueId())){
-            lightningArrowList.remove(event.getEntity().getUniqueId());
-            try{
-                event.getHitEntity().getWorld().strikeLightning(event.getHitEntity().getLocation());
-            } catch (NullPointerException ex){
-               try{
-                   event.getHitBlock().getWorld().strikeLightning(event.getHitBlock().getLocation());
-               } catch (NullPointerException ignored){
+        for(AliveArrow arrow : aliveArrowList){
+            if(event.getEntity().getUniqueId() == arrow.getArrowUUID()){
+                aliveArrowList.remove(arrow);
+                if(arrow.getArrowAction() == BowType.LIGHTNING){
+                    //Lightning Arrow
+                    try{
+                        event.getHitEntity().getWorld().strikeLightning(event.getHitEntity().getLocation());
+                    } catch (NullPointerException ex){
+                        try{
+                            event.getHitBlock().getWorld().strikeLightning(event.getHitBlock().getLocation());
+                        } catch (NullPointerException ignored){
 
-               }
-            }
-            event.getEntity().remove();
-        }
-        if(explosionArrowList.contains(event.getEntity().getUniqueId())){
-            explosionArrowList.remove(event.getEntity().getUniqueId());
-            try{
-                event.getHitEntity().getWorld().createExplosion(event.getHitEntity().getLocation(), 5f);
-            } catch (NullPointerException ex){
-                try{
-                    event.getHitBlock().getWorld().createExplosion(event.getHitBlock().getLocation(), 5f);
-                } catch (NullPointerException ignored){
+                        }
+                    }
+                } else if(arrow.getArrowAction() == BowType.EXPLOSION){
+                    //Explosion Arrow
+                    try{
+                        event.getHitEntity().getWorld().createExplosion(event.getHitEntity().getLocation(), 5f);
+                    } catch (NullPointerException ex){
+                        try{
+                            event.getHitBlock().getWorld().createExplosion(event.getHitBlock().getLocation(), 5f);
+                        } catch (NullPointerException ignored){
 
+                        }
+                    }
+                    event.getEntity().remove();
                 }
             }
-            event.getEntity().remove();
         }
     }
 }
