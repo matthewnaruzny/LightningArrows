@@ -13,12 +13,12 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class ArrowLandListener implements Listener {
+public class ArrowEventListener implements Listener {
 
     ArrayList<UUID> lightningArrowList;
     ArrayList<UUID> explosionArrowList;
 
-    ArrowLandListener(){
+    ArrowEventListener(){
         lightningArrowList = new ArrayList<UUID>();
         explosionArrowList = new ArrayList<UUID>();
     }
