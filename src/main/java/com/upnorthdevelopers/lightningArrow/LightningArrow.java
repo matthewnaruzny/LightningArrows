@@ -83,8 +83,3 @@ public class LightningArrow implements CommandExecutor {
     }
 
 }
-
-enum BowType {
-    LIGHTNING,
-    EXPLOSION;
-}
