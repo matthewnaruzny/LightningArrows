@@ -14,6 +14,6 @@ public class LightningArrowPlugin extends JavaPlugin {
         this.getCommand("lightningArrow").setExecutor(new LightningArrow(this));
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ArrowLandListener(), this);
+        getServer().getPluginManager().registerEvents(new ArrowEventListener(), this);
     }
 }
