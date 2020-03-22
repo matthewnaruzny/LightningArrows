@@ -25,14 +25,16 @@ public class ArrowEventListener implements Listener {
 
     @EventHandler
     public void onArrowLaunch(ProjectileLaunchEvent event){
-        Player player = (Player) event.getEntity().getShooter();
-        if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
-            if(LightningArrow.hasSpecialBow(player.getInventory())){
-                if(player.getInventory().getItemInMainHand().equals(LightningArrow.getLightningBow())){
-                    aliveArrowList.put(event.getEntity().getUniqueId(), BowType.LIGHTNING);
-                }
-                if(player.getInventory().getItemInMainHand().equals(LightningArrow.getExplosionBow())){
-                    aliveArrowList.put(event.getEntity().getUniqueId(), BowType.EXPLOSION);
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity().getShooter();
+            if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
+                if(LightningArrow.hasSpecialBow(player.getInventory())){
+                    if(player.getInventory().getItemInMainHand().equals(LightningArrow.getLightningBow())){
+                        aliveArrowList.put(event.getEntity().getUniqueId(), BowType.LIGHTNING);
+                    }
+                    if(player.getInventory().getItemInMainHand().equals(LightningArrow.getExplosionBow())){
+                        aliveArrowList.put(event.getEntity().getUniqueId(), BowType.EXPLOSION);
+                    }
                 }
             }
         }
