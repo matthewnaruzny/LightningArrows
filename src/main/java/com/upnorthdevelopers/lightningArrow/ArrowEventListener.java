@@ -27,7 +27,7 @@ public class ArrowEventListener implements Listener {
 
     @EventHandler
     public void onArrowLaunch(ProjectileLaunchEvent event){
-        if (event.getEntity() instanceof Player) {
+        if (event.getEntity().getShooter() instanceof Player) {
             Player player = (Player) event.getEntity().getShooter();
             if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
                 if(LightningArrow.hasSpecialBow(player.getInventory())){
