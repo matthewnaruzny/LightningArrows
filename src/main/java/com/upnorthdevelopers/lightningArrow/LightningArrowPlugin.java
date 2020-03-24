@@ -4,6 +4,7 @@
 
 package com.upnorthdevelopers.lightningArrow;
 
+import com.upnorthdevelopers.lightningArrow.bow.BowManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LightningArrowPlugin extends JavaPlugin {

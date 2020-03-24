@@ -4,17 +4,11 @@
 
 package com.upnorthdevelopers.lightningArrow;
 
-import org.bukkit.Material;
+import com.upnorthdevelopers.lightningArrow.bow.BowManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LightningArrow implements CommandExecutor {
 

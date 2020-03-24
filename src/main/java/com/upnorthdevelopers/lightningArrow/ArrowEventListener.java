@@ -7,6 +7,7 @@ package com.upnorthdevelopers.lightningArrow;
 import com.upnorthdevelopers.lightningArrow.arrows.ExplosionArrow;
 import com.upnorthdevelopers.lightningArrow.arrows.LightningArrowEntity;
 import com.upnorthdevelopers.lightningArrow.arrows.SpecialArrow;
+import com.upnorthdevelopers.lightningArrow.bow.BowManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
