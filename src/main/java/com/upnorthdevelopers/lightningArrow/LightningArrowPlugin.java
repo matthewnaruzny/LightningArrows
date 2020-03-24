@@ -13,6 +13,9 @@ public class LightningArrowPlugin extends JavaPlugin {
         // Register Commands
         this.getCommand("lightningArrow").setExecutor(new LightningArrow(this));
 
+        // Register TabCompleters
+        this.getCommand("lightningArrow").setTabCompleter(new LightningArrowTabCompleter());
+
         // Register Listeners
         getServer().getPluginManager().registerEvents(new ArrowEventListener(), this);
     }
