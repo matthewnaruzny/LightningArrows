@@ -10,13 +10,16 @@ public class LightningArrowPlugin extends JavaPlugin {
 
     @Override
     public void onEnable(){
+
+        BowManager bowManager = new BowManager(this);
+
         // Register Commands
-        this.getCommand("lightningArrow").setExecutor(new LightningArrow(this));
+        this.getCommand("lightningArrow").setExecutor(new LightningArrow(bowManager));
 
         // Register TabCompleters
         this.getCommand("lightningArrow").setTabCompleter(new LightningArrowTabCompleter());
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ArrowEventListener(), this);
+        getServer().getPluginManager().registerEvents(new ArrowEventListener(bowManager), this);
     }
 }

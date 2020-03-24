@@ -18,10 +18,10 @@ import java.util.List;
 
 public class LightningArrow implements CommandExecutor {
 
-    LightningArrowPlugin plugin;
+    private BowManager bowManager;
 
-    public LightningArrow(LightningArrowPlugin plugin){
-        this.plugin = plugin;
+    public LightningArrow(BowManager bowManager) {
+        this.bowManager = bowManager;
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] strings) {
@@ -30,56 +30,13 @@ public class LightningArrow implements CommandExecutor {
             BowType bowType;
             try{
                 bowType = BowType.valueOf(strings[0].toUpperCase());
-                player.getInventory().addItem(getBow(bowType));
+                player.getInventory().addItem(bowManager.getBow(bowType));
             } catch (ArrayIndexOutOfBoundsException ex){
-                player.getInventory().addItem(getBow(BowType.LIGHTNING));
+                player.getInventory().addItem(bowManager.getBow(BowType.LIGHTNING));
             }
 
         }
         return true;
-    }
-
-    public static ItemStack getBow(BowType bowType){
-        switch (bowType){
-            default:
-            case LIGHTNING:
-                return getLightningBow();
-            case EXPLOSION:
-                return getExplosionBow();
-        }
-    }
-
-    public static ItemStack getLightningBow(){
-        ItemStack bow = new ItemStack(Material.BOW, 1);
-        ItemMeta bowMeta = bow.getItemMeta();
-        bowMeta.setDisplayName("Lightning Bow");
-        List<String> bowLore = new ArrayList<String>();
-        bowLore.add("Strike lightning where lands");
-        bowMeta.setLore(bowLore);
-        bow.setItemMeta(bowMeta);
-        return bow;
-
-    }
-
-    public static ItemStack getExplosionBow(){
-        ItemStack bow = new ItemStack(Material.BOW, 1);
-        ItemMeta bowMeta = bow.getItemMeta();
-        bowMeta.setDisplayName("Explosion Bow");
-        List<String> bowLore = new ArrayList<String>();
-        bowLore.add("Cause explosion where lands");
-        bowMeta.setLore(bowLore);
-        bow.setItemMeta(bowMeta);
-        return bow;
-
-    }
-
-    public static boolean hasSpecialBow(Inventory inv){
-        for(BowType bowType : BowType.values()){
-            if(inv.contains(getBow(bowType))){
-                return true;
-            }
-        }
-        return false;
     }
 
 }

@@ -19,10 +19,12 @@ import java.util.UUID;
 
 public class ArrowEventListener implements Listener {
 
-    Map<UUID, SpecialArrow> aliveArrowList;
+    private Map<UUID, SpecialArrow> aliveArrowList;
+    private BowManager bowManager;
 
-    ArrowEventListener(){
+    public ArrowEventListener(BowManager bowManager){
         aliveArrowList = new HashMap<>();
+        this.bowManager = bowManager;
     }
 
     @EventHandler
@@ -30,11 +32,11 @@ public class ArrowEventListener implements Listener {
         if (event.getEntity().getShooter() instanceof Player) {
             Player player = (Player) event.getEntity().getShooter();
             if(player.hasPermission("lightningArrow.shoot") || player.isOp()){
-                if(LightningArrow.hasSpecialBow(player.getInventory())){
-                    if(player.getInventory().getItemInMainHand().equals(LightningArrow.getLightningBow())){
+                if(bowManager.hasSpecialBow(player.getInventory())){
+                    if(player.getInventory().getItemInMainHand().equals(bowManager.getLightningBow())){
                         aliveArrowList.put(event.getEntity().getUniqueId(), new LightningArrowEntity(event.getEntity().getUniqueId()));
                     }
-                    if(player.getInventory().getItemInMainHand().equals(LightningArrow.getExplosionBow())){
+                    if(player.getInventory().getItemInMainHand().equals(bowManager.getExplosionBow())){
                         aliveArrowList.put(event.getEntity().getUniqueId(), new ExplosionArrow(event.getEntity().getUniqueId()));
                     }
                 }
