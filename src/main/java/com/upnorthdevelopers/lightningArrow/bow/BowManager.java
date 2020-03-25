@@ -29,7 +29,7 @@ public class BowManager {
         bowType = new NamespacedKey(this.plugin, "bow-type");
     }
 
-    public ItemStack getBow(BowType bowType){
+    public ItemStack getBow(BowType bowType, String[] args){
         switch (bowType){
             default:
             case LIGHTNING:
