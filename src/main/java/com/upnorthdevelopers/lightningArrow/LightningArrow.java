@@ -18,15 +18,15 @@ public class LightningArrow implements CommandExecutor {
         this.bowManager = bowManager;
     }
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] strings) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player){
             Player player = (Player) sender;
             BowType bowType;
             try{
-                bowType = BowType.valueOf(strings[0].toUpperCase());
-                player.getInventory().addItem(bowManager.getBow(bowType));
+                bowType = BowType.valueOf(args[0].toUpperCase());
+                player.getInventory().addItem(bowManager.getBow(bowType, args));
             } catch (ArrayIndexOutOfBoundsException ex){
-                player.getInventory().addItem(bowManager.getBow(BowType.LIGHTNING));
+                player.getInventory().addItem(bowManager.getBow(BowType.LIGHTNING, args));
             }
 
         }
