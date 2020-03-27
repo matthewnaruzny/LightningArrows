@@ -15,12 +15,12 @@ public class LightningArrowPlugin extends JavaPlugin {
         BowManager bowManager = new BowManager(this);
 
         // Register Commands
-        this.getCommand("lightningArrow").setExecutor(new LightningArrow(bowManager));
+        this.getCommand("lightningArrow").setExecutor(new LightningArrowCommand(bowManager));
 
         // Register TabCompleters
         this.getCommand("lightningArrow").setTabCompleter(new LightningArrowTabCompleter());
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ArrowEventListener(bowManager), this);
+        getServer().getPluginManager().registerEvents(new ArrowEventListener(this, bowManager), this);
     }
 }

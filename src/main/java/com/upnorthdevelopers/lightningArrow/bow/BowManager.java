@@ -4,7 +4,6 @@
 
 package com.upnorthdevelopers.lightningArrow.bow;
 
-import com.upnorthdevelopers.lightningArrow.BowType;
 import com.upnorthdevelopers.lightningArrow.LightningArrowPlugin;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -15,13 +14,14 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BowManager {
 
     private LightningArrowPlugin plugin;
 
-    private NamespacedKey pluginBow;
-    private NamespacedKey bowType;
+    public NamespacedKey pluginBow;
+    public NamespacedKey bowType;
 
     public BowManager(LightningArrowPlugin plugin){
         this.plugin = plugin;
@@ -35,34 +35,21 @@ public class BowManager {
             case LIGHTNING:
                 return getLightningBow();
             case EXPLOSION:
-                return getExplosionBow();
+                if(args.length >= 2){
+                    System.out.println("Bow Arg Power" + Integer.parseInt(args[1]));
+                    return getExplosionBow(Integer.parseInt(args[1]));
+                } else {
+                    return getExplosionBow();
+                }
         }
     }
 
     public ItemStack getLightningBow(){
-        ItemStack bow = new ItemStack(Material.BOW, 1);
-        ItemMeta bowMeta = bow.getItemMeta();
-        bowMeta.setDisplayName("Lightning Bow");
-        List<String> bowLore = new ArrayList<String>();
-        bowLore.add("Strike lightning where lands");
-        bowMeta.setLore(bowLore);
-        bowMeta.getPersistentDataContainer().set(pluginBow, PersistentDataType.STRING, "true");
-        bowMeta.getPersistentDataContainer().set(bowType, PersistentDataType.STRING, "lightning");
-        bow.setItemMeta(bowMeta);
-        return bow;
+        return LightningBow.getBow(this);
     }
 
     public ItemStack getExplosionBow(int power){
-        ItemStack bow = new ItemStack(Material.BOW, 1);
-        ItemMeta bowMeta = bow.getItemMeta();
-        bowMeta.setDisplayName("Explosion Bow");
-        List<String> bowLore = new ArrayList<String>();
-        bowLore.add("Cause explosion where lands");
-        bowMeta.setLore(bowLore);
-        bowMeta.getPersistentDataContainer().set(pluginBow, PersistentDataType.STRING, "true");
-        bowMeta.getPersistentDataContainer().set(bowType, PersistentDataType.STRING, "explosion");
-        bow.setItemMeta(bowMeta);
-        return bow;
+        return new ExplosionBow(plugin).getBow(this, power);
     }
 
     public ItemStack getExplosionBow(){
@@ -71,7 +58,7 @@ public class BowManager {
 
     public boolean hasSpecialBow(Inventory inv){
         for(ItemStack itemStack : inv.getContents()){
-            if(itemStack.getItemMeta().getPersistentDataContainer().has(pluginBow, PersistentDataType.STRING)){
+            if(Objects.requireNonNull(itemStack.getItemMeta()).getPersistentDataContainer().has(pluginBow, PersistentDataType.STRING)){
                 if(itemStack.getItemMeta().getPersistentDataContainer().get(pluginBow, PersistentDataType.STRING).equalsIgnoreCase("true")){
                     return true;
                 }
@@ -82,7 +69,7 @@ public class BowManager {
 
     public BowType getBowType(ItemStack itemStack){
         if(itemStack.getItemMeta().getPersistentDataContainer().get(pluginBow, PersistentDataType.STRING).equalsIgnoreCase("true")){
-            return(BowType.valueOf(itemStack.getItemMeta().getPersistentDataContainer().get(bowType, PersistentDataType.STRING)));
+            return(BowType.valueOf(itemStack.getItemMeta().getPersistentDataContainer().get(bowType, PersistentDataType.STRING).toUpperCase()));
         }
         return null;
     }

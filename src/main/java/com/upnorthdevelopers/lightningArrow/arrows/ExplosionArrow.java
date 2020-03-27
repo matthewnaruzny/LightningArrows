@@ -13,10 +13,6 @@ public class ExplosionArrow implements SpecialArrow {
     private UUID uuid;
     private Float power;
 
-    public ExplosionArrow(UUID uuid){
-        this(uuid, 5f);
-    }
-
     public ExplosionArrow(UUID uuid, Float power){
         this.uuid = uuid;
         this.power = power;
@@ -29,6 +25,7 @@ public class ExplosionArrow implements SpecialArrow {
 
     @Override
     public void impact(ProjectileHitEvent event) {
+        System.out.println("Explosion Power: " + power);
         try{
             event.getHitEntity().getWorld().createExplosion(event.getHitEntity().getLocation(), power);
         } catch (NullPointerException ex){

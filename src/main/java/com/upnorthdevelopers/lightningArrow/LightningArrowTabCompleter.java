@@ -1,5 +1,6 @@
 package com.upnorthdevelopers.lightningArrow;
 
+import com.upnorthdevelopers.lightningArrow.bow.BowType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

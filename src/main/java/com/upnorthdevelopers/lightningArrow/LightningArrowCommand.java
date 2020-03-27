@@ -5,16 +5,17 @@
 package com.upnorthdevelopers.lightningArrow;
 
 import com.upnorthdevelopers.lightningArrow.bow.BowManager;
+import com.upnorthdevelopers.lightningArrow.bow.BowType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class LightningArrow implements CommandExecutor {
+public class LightningArrowCommand implements CommandExecutor {
 
     private BowManager bowManager;
 
-    public LightningArrow(BowManager bowManager) {
+    public LightningArrowCommand(BowManager bowManager) {
         this.bowManager = bowManager;
     }
 

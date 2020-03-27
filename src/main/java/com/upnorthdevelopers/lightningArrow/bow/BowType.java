@@ -1,4 +1,4 @@
-package com.upnorthdevelopers.lightningArrow;
+package com.upnorthdevelopers.lightningArrow.bow;
 
 public enum BowType {
     LIGHTNING,
